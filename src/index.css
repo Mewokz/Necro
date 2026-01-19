@@ -108,12 +108,18 @@ body.site-dimmed::after {
 .unstable-word {
   display: inline-block;
   position: relative;
-  z-index: 60;
+  z-index: 1; /* обычное состояние — под затемнением */
   cursor: default;
   will-change: transform, color, text-shadow;
   color: inherit;
   transform: translate(0, 0) scale(1);
   text-shadow: none;
+}
+
+/* поднимаем ТОЛЬКО при наведении / фокусе */
+.unstable-word:hover,
+.unstable-word:focus-visible {
+  z-index: 60;
 }
 
 /* 3 секунды ничего: и цвет/scale, и анимации ждут */
