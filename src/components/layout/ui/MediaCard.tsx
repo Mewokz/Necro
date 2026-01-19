@@ -96,15 +96,15 @@ export function MediaCard({
                 (e.currentTarget as HTMLImageElement).style.display = "none";
               }}
             />
-          ) : null}
-
-          {/* fallback mark */}
-          <div
-            className="absolute inset-0 flex items-center justify-center text-[10px] tracking-[0.22em]"
-            style={{ color: "rgb(var(--ui-muted-2))" }}
-          >
-            {badgeForKind(item.kind)}
-          </div>
+          ) : (
+            // ✅ fallback ТОЛЬКО если НЕТ картинки
+            <div
+              className="absolute inset-0 flex items-center justify-center text-[10px] tracking-[0.22em]"
+              style={{ color: "rgb(var(--ui-muted-2))" }}
+            >
+              {badgeForKind(item.kind)}
+            </div>
+          )}
         </div>
 
         <div className="min-w-0 flex-1">
