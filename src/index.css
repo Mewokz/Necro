@@ -26,7 +26,6 @@ body,
 
 /* =========================
    Dead Military UI Palette
-   (RGB triplets for Tailwind arbitrary colors)
    ========================= */
 :root {
   --ui-bg: 7 10 8; /* near-black with green hint */
@@ -72,4 +71,167 @@ body,
   );
   opacity: 0.09;
   pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   GLOBAL DIM (whole site) — toggled via body class
+   ───────────────────────────────────────────── */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  /* ВАЖНО: чтобы перекрывать весь сайт, но не ломать клики */
+  z-index: 40;
+
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: none;
+
+  transition:
+    background 9000ms ease,
+    backdrop-filter 900ms ease;
+}
+
+/* активируется только после 3s hover (через body class из компонента) */
+body.site-dimmed::after {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(1.5px);
+}
+
+/* ─────────────────────────────────────────────
+   UNSTABLE WORD — hold 3s, then decay + glow
+   (твой рабочий shake-паттерн, но без конфликтов)
+   ───────────────────────────────────────────── */
+
+.unstable-word {
+  display: inline-block;
+  position: relative;
+  z-index: 60;
+  cursor: default;
+  will-change: transform, color, text-shadow;
+  color: inherit;
+  transform: translate(0, 0) scale(1);
+  text-shadow: none;
+}
+
+/* 3 секунды ничего: и цвет/scale, и анимации ждут */
+.unstable-word:hover {
+  /* цвет/scale начнутся ТОЛЬКО после 3s */
+  transition-property: color, transform;
+  transition-duration: 2400ms, 2400ms;
+  transition-timing-function: ease, ease;
+  transition-delay: 3s, 3s;
+
+  color: rgb(200, 60, 60);
+  transform: translate(0, 0) scale(1.06);
+
+  /* ВАЖНО: одна (!) строка animation, чтобы не переопределять себя */
+  animation:
+    unstable-ramp 14s ease-in forwards,
+    unstable-shake 120ms linear infinite,
+    unstable-glow 14s ease-in forwards;
+
+  animation-delay: 3s, 3s, 3s;
+  animation-fill-mode: forwards, none, forwards;
+}
+
+/* переменная силы дрожи растёт от слабой к психопатичной */
+@keyframes unstable-ramp {
+  0% {
+    --u: 0.08;
+  }
+  12% {
+    --u: 0.14;
+  }
+  25% {
+    --u: 0.22;
+  }
+  40% {
+    --u: 0.4;
+  }
+  55% {
+    --u: 0.7;
+  }
+  70% {
+    --u: 1.05;
+  }
+  85% {
+    --u: 1.45;
+  }
+  100% {
+    --u: 1.9;
+  }
+}
+
+/* дрожание: твой паттерн, но амплитуда * var(--u)
+   scale фиксирован (1.06), чтобы НЕ было “пульса” */
+@keyframes unstable-shake {
+  0% {
+    transform: translate(0, 0) scale(1.06);
+  }
+  10% {
+    transform: translate(calc(-0.6px * var(--u)), calc(0.4px * var(--u)))
+      scale(1.06);
+  }
+  20% {
+    transform: translate(calc(0.7px * var(--u)), calc(-0.5px * var(--u)))
+      scale(1.06);
+  }
+  30% {
+    transform: translate(calc(-0.9px * var(--u)), calc(0.7px * var(--u)))
+      scale(1.06);
+  }
+  40% {
+    transform: translate(calc(1.2px * var(--u)), calc(-0.8px * var(--u)))
+      scale(1.06);
+  }
+  50% {
+    transform: translate(calc(-1.1px * var(--u)), calc(1px * var(--u)))
+      scale(1.06);
+  }
+  60% {
+    transform: translate(calc(0.9px * var(--u)), calc(-1.1px * var(--u)))
+      scale(1.06);
+  }
+  70% {
+    transform: translate(calc(-1.4px * var(--u)), calc(0.8px * var(--u)))
+      scale(1.06);
+  }
+  80% {
+    transform: translate(calc(1.1px * var(--u)), calc(-0.9px * var(--u)))
+      scale(1.06);
+  }
+  90% {
+    transform: translate(calc(-0.8px * var(--u)), calc(1.2px * var(--u)))
+      scale(1.06);
+  }
+  100% {
+    transform: translate(0, 0) scale(1.06);
+  }
+}
+
+/* свечение растёт вместе с распадом */
+@keyframes unstable-glow {
+  0% {
+    text-shadow:
+      0 0 2px rgba(255, 90, 90, 0.15),
+      0 0 6px rgba(255, 60, 60, 0.1);
+  }
+  30% {
+    text-shadow:
+      0 0 6px rgba(255, 90, 90, 0.35),
+      0 0 14px rgba(255, 60, 60, 0.25);
+  }
+  60% {
+    text-shadow:
+      0 0 12px rgba(255, 90, 90, 0.65),
+      0 0 28px rgba(255, 60, 60, 0.45);
+  }
+  100% {
+    text-shadow:
+      0 0 20px rgba(255, 90, 90, 0.95),
+      0 0 46px rgba(255, 60, 60, 0.75);
+  }
 }

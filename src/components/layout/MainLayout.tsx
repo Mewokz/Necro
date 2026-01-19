@@ -3,6 +3,7 @@ import { Panel } from "./ui/Panel";
 import { StatPill } from "./ui/StatPill";
 import { MediaGrid } from "./ui/MediaGrid";
 import type { MediaItem } from "./ui/types";
+import { UnstableDimmingWord } from "./ui/UnstableDimmingWord";
 
 const GAMES: MediaItem[] = [
   {
@@ -97,12 +98,13 @@ export function MainLayout() {
                 </div>
 
                 <p className="mt-3 text-sm leading-relaxed text-[rgb(var(--ui-muted))]">
-                  Dead-military UI: restrained, worn, utilitarian.
+                  Silly <UnstableDimmingWord>unstable</UnstableDimmingWord>{" "}
+                  artist
                 </p>
 
                 <div className="mt-4 flex flex-wrap gap-2">
                   <StatPill tone="neutral">ROLE: Student</StatPill>
-                  <StatPill tone="neutral">FOCUS: Security / Systems</StatPill>
+                  <StatPill tone="neutral">FOCUS: arts</StatPill>
                   <StatPill tone="warn">MODE: BUILDING</StatPill>
                 </div>
               </div>
@@ -110,15 +112,15 @@ export function MainLayout() {
 
             <div className="mt-6">
               <Panel title="OPS NOTES" subtitle="Bio / parameters">
-                <p className="text-sm leading-relaxed text-[rgb(var(--ui-muted))]">
-                  Тут позже будет твой текст о себе. Коротко, сухо, по делу.
+                <p className="text-sm leading-relaxed text-[rgb(var(--ui-muted))] flex justify-center">
+                  [Data erased]
                 </p>
 
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   <StatRow k="Location" v="USA / Nevada" />
                   <StatRow k="Stack" v="React, TS, Tailwind" />
-                  <StatRow k="Interests" v="UI, Security, Devices" />
-                  <StatRow k="Tone" v="Dead Military UI" />
+                  <StatRow k="Interests" v="UI, Engineering" />
+                  <StatRow k="Tone" v="Military UI" />
                 </div>
               </Panel>
             </div>
