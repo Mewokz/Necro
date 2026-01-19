@@ -95,7 +95,6 @@ export function MainLayout() {
                     Profile Summary
                   </h2>
                   <StatPill tone="ok">STATUS: ONLINE</StatPill>
-                  <StatPill tone="neutral">CLEARANCE: A1</StatPill>
                 </div>
 
                 <p className="mt-3 text-sm leading-relaxed text-[rgb(var(--ui-muted))]">
@@ -111,7 +110,7 @@ export function MainLayout() {
               </div>
             </Panel>
 
-            <div className="mt-6">
+            <div className="mt-7.5">
               <Panel title="OPS NOTES" subtitle="Bio / parameters">
                 <p className="text-sm leading-relaxed text-[rgb(var(--ui-muted))] flex justify-center">
                   [Data erased]
