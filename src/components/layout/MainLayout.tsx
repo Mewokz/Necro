@@ -22,6 +22,7 @@ const GAMES: MediaItem[] = [
     kind: "game",
     title: "Peripeteia",
     subtitle: "Immersive sim",
+    description: "Idk",
     coverSrc: "/media/games/peripeteia.jpg",
     status: "normal",
   },
@@ -116,10 +117,10 @@ export function MainLayout() {
                   [Data erased]
                 </p>
 
-                <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                <div className="mt-4 grid gap-2 sm:grid-cols-1">
                   <StatRow k="Location" v="USA / Nevada" />
                   <StatRow k="Stack" v="React, TS, Tailwind" />
-                  <StatRow k="Interests" v="UI, Engineering" />
+                  <StatRow k="Interests" v="Arts, UI, Engineering" />
                   <StatRow k="Tone" v="Military UI" />
                 </div>
               </Panel>
@@ -149,11 +150,11 @@ export function MainLayout() {
 
               <Panel title="SKILLS" subtitle="Capabilities snapshot">
                 <div className="flex flex-wrap gap-2">
-                  <StatPill tone="ok">UI Layout</StatPill>
-                  <StatPill tone="ok">TypeScript</StatPill>
-                  <StatPill tone="neutral">Linux</StatPill>
-                  <StatPill tone="neutral">Arduino / ESP32</StatPill>
-                  <StatPill tone="warn">Security (learning)</StatPill>
+                  <StatPill tone="ok">ARTS</StatPill>
+                  <StatPill tone="warn">TypeScript</StatPill>
+                  <StatPill tone="warn">Linux</StatPill>
+                  <StatPill tone="warn">Arduino / ESP32</StatPill>
+                  <StatPill tone="warn">Security</StatPill>
                 </div>
               </Panel>
             </div>
