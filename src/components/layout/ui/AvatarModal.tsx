@@ -26,18 +26,37 @@ export function AvatarModal({
       aria-modal="true"
       onMouseDown={onClose}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
+      {/* backdrop */}
       <div
-        className="relative w-full max-w-xl rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4"
+        className="absolute inset-0 backdrop-blur-sm"
+        style={{ backgroundColor: "rgba(0,0,0,0.75)" }}
+      />
+
+      {/* modal */}
+      <div
+        className="relative w-full max-w-xl rounded-2xl border p-4"
+        style={{
+          borderColor: "rgb(var(--ui-border))",
+          backgroundColor: "rgba(11,18,14,0.75)",
+          color: "rgb(var(--ui-text))",
+        }}
         onMouseDown={(e) => e.stopPropagation()}
       >
+        {/* header */}
         <div className="flex items-center justify-between">
-          <p className="text-xs tracking-[0.3em] uppercase text-zinc-400">
+          <p
+            className="text-xs tracking-[0.3em] uppercase"
+            style={{ color: "rgb(var(--ui-muted-2))" }}
+          >
             OPERATOR IMAGE
           </p>
           <button
-            className="rounded-lg border border-zinc-800 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-200 hover:bg-zinc-900 transition"
+            className="rounded-lg border px-3 py-1 text-xs transition hover:opacity-90"
+            style={{
+              borderColor: "rgb(var(--ui-border-2))",
+              backgroundColor: "rgba(9,14,11,0.55)",
+              color: "rgb(var(--ui-text))",
+            }}
             onClick={onClose}
             type="button"
           >
@@ -45,7 +64,14 @@ export function AvatarModal({
           </button>
         </div>
 
-        <div className="mt-4 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/30">
+        {/* image */}
+        <div
+          className="mt-4 overflow-hidden rounded-xl border"
+          style={{
+            borderColor: "rgb(var(--ui-border-2))",
+            backgroundColor: "rgba(9,14,11,0.55)",
+          }}
+        >
           <img
             src={src}
             alt="Avatar"
@@ -57,8 +83,10 @@ export function AvatarModal({
           />
         </div>
 
-        <p className="mt-3 text-xs text-zinc-500">
-          Tip: press <span className="text-zinc-300">Esc</span> to close.
+        {/* footer hint */}
+        <p className="mt-3 text-xs" style={{ color: "rgb(var(--ui-muted))" }}>
+          Tip: press <span style={{ color: "rgb(var(--ui-text))" }}>Esc</span>{" "}
+          to close.
         </p>
       </div>
     </div>

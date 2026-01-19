@@ -6,41 +6,45 @@ import type { MediaItem } from "./ui/types";
 
 const GAMES: MediaItem[] = [
   {
-    id: "game-1",
+    id: "doom",
     kind: "game",
-    title: "Add your game here",
-    subtitle: "Platform / tag",
-    description:
-      "Short note: why this game is here, what you like about it, etc.",
-    href: "https://example.com",
+    title: "DOOM",
+    subtitle: "PC / FPS",
+    description: "Replace with your own notes.",
+    coverSrc: "/media/games/doom.png",
     status: "pinned",
+    href: "https://example.com",
+    tags: ["fps", "classic"],
   },
   {
     id: "game-2",
     kind: "game",
     title: "Second game",
     subtitle: "Platform / tag",
-    description: "Optional description for the modal.",
+    coverSrc: "/media/games/game-2.png",
     status: "normal",
   },
 ];
 
 const TRACKS: MediaItem[] = [
   {
-    id: "track-1",
+    id: "track1",
     kind: "track",
-    title: "Add your track here",
-    subtitle: "Artist / genre",
-    description:
-      "Short note: why it matches your vibe. Keep it concise and dry.",
-    href: "https://example.com",
+    title: "Awaken",
+    subtitle: "Dethklok / Metal",
+    description: "Metalocalypse",
+    coverSrc: "/media/tracks/awaken.png",
+    audioSrc: "/media/audio/dethklok_awaken.mp3",
     status: "pinned",
+    href: "https://www.youtube.com/watch?v=H2ManC9QcNs&list=RDH2ManC9QcNs&start_radio=1",
+    tags: [""],
   },
   {
     id: "track-2",
     kind: "track",
     title: "Second track",
     subtitle: "Artist / genre",
+    coverSrc: "/media/tracks/track-2.png",
     status: "normal",
   },
 ];
@@ -91,8 +95,7 @@ export function MainLayout() {
                 </div>
 
                 <p className="mt-3 text-sm leading-relaxed text-[rgb(var(--ui-muted))]">
-                  Dead-military UI: restrained, worn, utilitarian. Terminal hint
-                  — but still premium.
+                  Dead-military UI: restrained, worn, utilitarian.
                 </p>
 
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -123,53 +126,61 @@ export function MainLayout() {
           <div className="lg:col-span-7">
             <div className="grid gap-6">
               <Panel title="LOADOUT" subtitle="Projects / modules">
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {/* тут позже тоже сделаем data-driven карточки проектов */}
-                  <MediaGrid
-                    title="Modules"
-                    items={[
-                      {
-                        id: "mod-1",
-                        kind: "module",
-                        title: "Necrosys",
-                        subtitle: "Interface system",
-                        description:
-                          "Central concept. Strict design, no glitch, no noise.",
-                        status: "pinned",
-                      },
-                      {
-                        id: "mod-2",
-                        kind: "module",
-                        title: "RID / CRIS",
-                        subtitle: "Device concepts",
-                        description:
-                          "Interface devices: satellite + core. Ritual OS thinking.",
-                      },
-                      {
-                        id: "mod-3",
-                        kind: "module",
-                        title: "Labs",
-                        subtitle: "Experiments",
-                        description: "Notes, tests, prototypes.",
-                      },
-                      {
-                        id: "mod-4",
-                        kind: "module",
-                        title: "Tools",
-                        subtitle: "Utilities",
-                        description: "Scripts, helpers, configs.",
-                      },
-                    ]}
-                  />
-                </div>
+                <MediaGrid
+                  title="Modules"
+                  libraryLabel="OPEN MODULES"
+                  previewCount={4}
+                  items={[
+                    {
+                      id: "mod-1",
+                      kind: "module",
+                      title: "Necrosys",
+                      subtitle: "Interface system",
+                      description:
+                        "Central concept. Strict design, no glitch, no noise.",
+                      status: "pinned",
+                    },
+                    {
+                      id: "mod-2",
+                      kind: "module",
+                      title: "RID / CRIS",
+                      subtitle: "Device concepts",
+                      description: "Interface devices: satellite + core.",
+                    },
+                    {
+                      id: "mod-3",
+                      kind: "module",
+                      title: "Labs",
+                      subtitle: "Experiments",
+                      description: "Notes, tests, prototypes.",
+                    },
+                    {
+                      id: "mod-4",
+                      kind: "module",
+                      title: "Tools",
+                      subtitle: "Utilities",
+                      description: "Scripts, helpers, configs.",
+                    },
+                  ]}
+                />
               </Panel>
 
               <Panel title="GAMES" subtitle="Pinned / recent">
-                <MediaGrid title="Games" items={GAMES} />
+                <MediaGrid
+                  title="Games"
+                  libraryLabel="OPEN GAMES"
+                  previewCount={4}
+                  items={GAMES}
+                />
               </Panel>
 
               <Panel title="MUSIC" subtitle="Pinned / recent">
-                <MediaGrid title="Tracks" items={TRACKS} />
+                <MediaGrid
+                  title="Tracks"
+                  libraryLabel="OPEN MUSIC"
+                  previewCount={4}
+                  items={TRACKS}
+                />
               </Panel>
 
               <Panel title="SKILLS" subtitle="Capabilities snapshot">
