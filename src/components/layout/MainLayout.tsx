@@ -127,46 +127,6 @@ export function MainLayout() {
           {/* RIGHT */}
           <div className="lg:col-span-7">
             <div className="grid gap-6">
-              <Panel title="LOADOUT" subtitle="Projects / modules">
-                <MediaGrid
-                  title="Modules"
-                  libraryLabel="OPEN MODULES"
-                  previewCount={4}
-                  items={[
-                    {
-                      id: "mod-1",
-                      kind: "module",
-                      title: "Necrosys",
-                      subtitle: "Interface system",
-                      description:
-                        "Central concept. Strict design, no glitch, no noise.",
-                      status: "pinned",
-                    },
-                    {
-                      id: "mod-2",
-                      kind: "module",
-                      title: "RID / CRIS",
-                      subtitle: "Device concepts",
-                      description: "Interface devices: satellite + core.",
-                    },
-                    {
-                      id: "mod-3",
-                      kind: "module",
-                      title: "Labs",
-                      subtitle: "Experiments",
-                      description: "Notes, tests, prototypes.",
-                    },
-                    {
-                      id: "mod-4",
-                      kind: "module",
-                      title: "Tools",
-                      subtitle: "Utilities",
-                      description: "Scripts, helpers, configs.",
-                    },
-                  ]}
-                />
-              </Panel>
-
               <Panel title="GAMES" subtitle="Pinned / recent">
                 <MediaGrid
                   title="Games"
