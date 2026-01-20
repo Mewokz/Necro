@@ -123,7 +123,7 @@ export function MainLayout() {
                   <StatRow k="Location" v="USA / Nevada" />
                   <StatRow k="Stack" v="React, TS, Tailwind" />
                   <StatRow k="Interests" v="Arts, UI, Engineering" />
-                  <StatRow k="Tone" v="Military UI" />
+                  <StatRow k="Tone" v="Necro UI" />
                 </div>
               </Panel>
             </div>
