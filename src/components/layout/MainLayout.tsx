@@ -38,7 +38,7 @@ type OperatorStatus =
   | "UNKNOWN"
   | "POSTAL";
 
-const OPERATOR_STATUS: OperatorStatus = "DEAD";
+const OPERATOR_STATUS: OperatorStatus = "POSTAL";
 
 function statusTone(s: OperatorStatus): "ok" | "warn" | "danger" | "neutral" {
   switch (s) {
