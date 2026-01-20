@@ -5,6 +5,7 @@ import { MediaGrid } from "./ui/MediaGrid";
 import type { MediaItem } from "./ui/types";
 import { ProximityDimHiss } from "./ui/ProximityDimHiss";
 import { UnstableDimmingWord } from "./ui/UnstableDimmingWord";
+import { Analytics } from "@vercel/analytics/next";
 
 const GAMES: MediaItem[] = [
   {
