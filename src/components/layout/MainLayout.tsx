@@ -6,7 +6,7 @@ import type { MediaItem } from "./ui/types";
 import { ProximityDimHiss } from "./ui/ProximityDimHiss";
 import { UnstableDimmingWord } from "./ui/UnstableDimmingWord";
 import { Analytics } from "@vercel/analytics/next";
-
+<Analytics />;
 const GAMES: MediaItem[] = [
   {
     id: "doom",
@@ -38,7 +38,7 @@ type OperatorStatus =
   | "OFFLINE"
   | "UNKNOWN"
   | "POSTAL";
-<Analytics />;
+
 const OPERATOR_STATUS: OperatorStatus = "BREAKDOWN";
 
 function statusTone(s: OperatorStatus): "ok" | "warn" | "danger" | "neutral" {
