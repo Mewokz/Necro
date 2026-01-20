@@ -77,21 +77,29 @@ body,
    GLOBAL DIM (whole site) — toggled via body class
    ───────────────────────────────────────────── */
 
+body {
+  --prox: 0; /* 0..1 */
+}
+
+/* глобальный затемняющий слой */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-
-  /* ВАЖНО: чтобы перекрывать весь сайт, но не ломать клики */
   z-index: 40;
 
-  background: rgba(0, 0, 0, 0);
-  backdrop-filter: none;
+  background: rgba(0, 0, 0, calc(0.72 * var(--prox)));
+  backdrop-filter: blur(calc(1.5px * var(--prox)));
 
   transition:
-    background 9000ms ease,
-    backdrop-filter 900ms ease;
+    background 120ms linear,
+    backdrop-filter 120ms linear;
+}
+
+/* unstable принудительно держит 100% */
+body.site-dimmed {
+  --prox: 1;
 }
 
 /* активируется только после 3s hover (через body class из компонента) */
@@ -240,4 +248,201 @@ body.site-dimmed::after {
       0 0 20px rgba(255, 90, 90, 0.95),
       0 0 46px rgba(255, 60, 60, 0.75);
   }
+}
+/* ─────────────────────────────────────────────
+   OPERATOR ALARM PULSE (only for DEAD/BREAKDOWN)
+   ───────────────────────────────────────────── */
+
+.op-alarm {
+  position: relative;
+  display: inline-flex;
+}
+
+.op-alarm::after {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  border-radius: 999px;
+  pointer-events: none;
+
+  /* мягкий “сигнал” */
+  box-shadow:
+    0 0 0 0 rgba(199, 168, 91, 0),
+    0 0 0 0 rgba(196, 106, 90, 0);
+
+  opacity: 0;
+}
+
+.op-alarm.is-warn::after {
+  animation: alarm-pulse-warn 1.55s ease-in-out infinite;
+}
+
+.op-alarm.is-danger::after {
+  /* сердцебиение: двойной удар + пауза */
+  animation: alarm-heartbeat-danger 0.78s ease-in-out infinite;
+}
+
+@keyframes alarm-pulse-warn {
+  0% {
+    opacity: 0;
+    box-shadow:
+      0 0 0 0 rgba(199, 168, 91, 0),
+      0 0 0 0 rgba(199, 168, 91, 0);
+  }
+  35% {
+    opacity: 0.9;
+    box-shadow:
+      0 0 0 1px rgba(199, 168, 91, 0.25),
+      0 0 18px 2px rgba(199, 168, 91, 0.18);
+  }
+  100% {
+    opacity: 0;
+    box-shadow:
+      0 0 0 10px rgba(199, 168, 91, 0),
+      0 0 36px 10px rgba(199, 168, 91, 0);
+  }
+}
+
+@keyframes alarm-heartbeat-danger {
+  /* 1-й удар */
+  0% {
+    opacity: 0;
+    box-shadow:
+      0 0 0 0 rgba(196, 106, 90, 0),
+      0 0 0 0 rgba(196, 106, 90, 0);
+  }
+  10% {
+    opacity: 0.95;
+    box-shadow:
+      0 0 0 1px rgba(196, 106, 90, 0.32),
+      0 0 18px 2px rgba(196, 106, 90, 0.26);
+  }
+  22% {
+    opacity: 0.15;
+    box-shadow:
+      0 0 0 7px rgba(196, 106, 90, 0),
+      0 0 28px 8px rgba(196, 106, 90, 0);
+  }
+
+  /* 2-й удар (чуть слабее, быстрее) */
+  30% {
+    opacity: 0.85;
+    box-shadow:
+      0 0 0 1px rgba(196, 106, 90, 0.26),
+      0 0 14px 2px rgba(196, 106, 90, 0.22);
+  }
+  42% {
+    opacity: 0.1;
+    box-shadow:
+      0 0 0 8px rgba(196, 106, 90, 0),
+      0 0 34px 10px rgba(196, 106, 90, 0);
+  }
+
+  /* пауза */
+  100% {
+    opacity: 0;
+    box-shadow:
+      0 0 0 14px rgba(196, 106, 90, 0),
+      0 0 44px 14px rgba(196, 106, 90, 0);
+  }
+}
+
+/* уважение к reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .op-alarm.is-warn::after,
+  .op-alarm.is-danger::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+.postal-status {
+  display: inline-block;
+  position: relative;
+  will-change: transform, color, text-shadow;
+  color: rgb(200, 90, 90);
+
+  /* базовая микродрожь */
+  animation: postal-nerve 160ms infinite steps(2, end);
+}
+
+/* усиление дрожи при proximity */
+body {
+  --prox: 0; /* уже есть */
+}
+
+@keyframes postal-nerve {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(
+        calc(-0.6px * (1 + var(--prox) * 4)),
+        calc(0.4px * (1 + var(--prox) * 4))
+      )
+      scale(calc(1 + var(--prox) * 0.03));
+  }
+  40% {
+    transform: translate(
+        calc(0.9px * (1 + var(--prox) * 5)),
+        calc(-0.6px * (1 + var(--prox) * 5))
+      )
+      scale(calc(1 + var(--prox) * 0.04));
+  }
+  60% {
+    transform: translate(
+        calc(-1.2px * (1 + var(--prox) * 6)),
+        calc(0.8px * (1 + var(--prox) * 6))
+      )
+      scale(calc(1 + var(--prox) * 0.05));
+  }
+  80% {
+    transform: translate(
+        calc(1.4px * (1 + var(--prox) * 7)),
+        calc(-1px * (1 + var(--prox) * 7))
+      )
+      scale(calc(1 + var(--prox) * 0.06));
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+.postal-heart {
+  position: absolute;
+  inset: -5px;
+  border-radius: 999px;
+  pointer-events: none;
+
+  animation: postal-heartbeat 0.78s infinite;
+}
+
+@keyframes postal-heartbeat {
+  0% {
+    box-shadow: 0 0 0 0 rgba(196, 106, 90, 0);
+    opacity: 0;
+  }
+  12% {
+    box-shadow: 0 0 0 2px rgba(196, 106, 90, 0.25);
+    opacity: 0.8;
+  }
+  22% {
+    box-shadow: 0 0 0 6px rgba(196, 106, 90, 0);
+    opacity: 0;
+  }
+  38% {
+    box-shadow: 0 0 0 1px rgba(196, 106, 90, 0.18);
+    opacity: 0.6;
+  }
+  55% {
+    box-shadow: 0 0 0 9px rgba(196, 106, 90, 0);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* POSTAL status layer */
+.postal-layer {
+  position: relative;
+  z-index: 45;
 }

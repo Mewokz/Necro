@@ -3,6 +3,7 @@ import { Panel } from "./ui/Panel";
 import { StatPill } from "./ui/StatPill";
 import { MediaGrid } from "./ui/MediaGrid";
 import type { MediaItem } from "./ui/types";
+import { ProximityDimHiss } from "./ui/ProximityDimHiss";
 import { UnstableDimmingWord } from "./ui/UnstableDimmingWord";
 
 const GAMES: MediaItem[] = [
@@ -29,6 +30,32 @@ const GAMES: MediaItem[] = [
     tags: ["Immersive"],
   },
 ];
+type OperatorStatus =
+  | "ALIVE"
+  | "DEAD"
+  | "BREAKDOWN"
+  | "OFFLINE"
+  | "UNKNOWN"
+  | "POSTAL";
+
+const OPERATOR_STATUS: OperatorStatus = "BREAKDOWN";
+
+function statusTone(s: OperatorStatus): "ok" | "warn" | "danger" | "neutral" {
+  switch (s) {
+    case "ALIVE":
+      return "ok";
+    case "BREAKDOWN":
+      return "warn";
+    case "DEAD":
+      return "danger";
+    case "POSTAL":
+      return "danger";
+    case "OFFLINE":
+      return "neutral";
+    default:
+      return "neutral";
+  }
+}
 
 const TRACKS: MediaItem[] = [
   {
@@ -97,9 +124,37 @@ export function MainLayout() {
                   <h2 className="text-lg font-medium tracking-tight">
                     Profile Summary
                   </h2>
-                  <StatPill tone="ok">STATUS: ONLINE</StatPill>
+                  {OPERATOR_STATUS === "POSTAL" ? (
+                    <ProximityDimHiss
+                      enabled
+                      radiusPx={340}
+                      gainBoost={6}
+                      maxVolume={1}
+                    >
+                      <div className="postal-layer">
+                        <div className="op-alarm is-danger relative">
+                          <span className="postal-heart" />
+                          <StatPill tone="danger">
+                            OPERATOR:{" "}
+                            <span className="postal-status">POSTAL</span>
+                          </StatPill>
+                        </div>
+                      </div>
+                    </ProximityDimHiss>
+                  ) : (
+                    <div
+                      className={[
+                        "op-alarm",
+                        OPERATOR_STATUS === "BREAKDOWN" ? "is-warn" : "",
+                        OPERATOR_STATUS === "DEAD" ? "is-danger" : "",
+                      ].join(" ")}
+                    >
+                      <StatPill tone={statusTone(OPERATOR_STATUS)}>
+                        OPERATOR: {OPERATOR_STATUS}
+                      </StatPill>
+                    </div>
+                  )}
                 </div>
-
                 <p className="mt-3 text-sm leading-relaxed text-[rgb(var(--ui-muted))]">
                   Silly <UnstableDimmingWord>unstable</UnstableDimmingWord>{" "}
                   artist
@@ -121,7 +176,7 @@ export function MainLayout() {
 
                 <div className="mt-4 grid gap-2 sm:grid-cols-1">
                   <StatRow k="Location" v="USA / Nevada" />
-                  <StatRow k="Stack" v="React, TS, Tailwind" />
+                  <StatRow k="Health" v="Unclassified" />
                   <StatRow k="Interests" v="Arts, UI, Engineering" />
                   <StatRow k="Tone" v="Necro UI" />
                 </div>
