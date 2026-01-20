@@ -38,7 +38,7 @@ type OperatorStatus =
   | "OFFLINE"
   | "UNKNOWN"
   | "POSTAL";
-
+<Analytics />;
 const OPERATOR_STATUS: OperatorStatus = "BREAKDOWN";
 
 function statusTone(s: OperatorStatus): "ok" | "warn" | "danger" | "neutral" {
