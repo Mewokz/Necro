@@ -10,7 +10,7 @@ const GAMES: MediaItem[] = [
     id: "doom",
     kind: "game",
     title: "Pink Valley",
-    subtitle: "DOOM II Mod",
+    subtitle: "Vamvilodon",
     description: "Hate.",
     coverSrc: "/media/games/valley.png",
     status: "pinned",
@@ -21,10 +21,12 @@ const GAMES: MediaItem[] = [
     id: "game-2",
     kind: "game",
     title: "Peripeteia",
-    subtitle: "Immersive sim",
-    description: "Idk",
+    subtitle: "Ninth Exodus",
+    description: "Immersive sim",
     coverSrc: "/media/games/peripeteia.jpg",
+    href: "https://store.steampowered.com/app/1437760/Peripeteia",
     status: "normal",
+    tags: ["Immersive"],
   },
 ];
 
@@ -49,6 +51,7 @@ const TRACKS: MediaItem[] = [
     description: "Misfits cover",
     coverSrc: "/media/tracks/die.png",
     status: "normal",
+    href: "https://www.youtube.com/watch?v=0o4yv6Cm_ag&list=RD0o4yv6Cm_ag&start_radio=1",
     tags: ["Metal"],
   },
 ];
